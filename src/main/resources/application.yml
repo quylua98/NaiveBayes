@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/survey_data?autoReconnect=true&useSSL=false
+    username: root
+    password: cXV5bHVhOTg
