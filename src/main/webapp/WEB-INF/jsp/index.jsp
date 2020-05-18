@@ -31,8 +31,6 @@
     <!--===============================================================================================-->
 </head>
 <body>
-
-
 <div class="container-contact100">
     <div class="wrap-contact100">
         <form class="contact100-form validate-form" method="post" action="process">
@@ -66,7 +64,7 @@
             <div class="wrap-input100">
                 <span class="label-input100">Bạn là người hướng nội hay hướng ngoại?</span>
                 <div>
-                    <select class="js-select2" name="huongNoiNgoai">
+                    <select class="js-select2" name="tinhCach">
                         <option value="Hướng nội">Hướng nội</option>
                         <option value="Hướng ngoại">Hướng ngoại</option>
                     </select>

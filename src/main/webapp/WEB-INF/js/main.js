@@ -41,7 +41,6 @@
 
         $(thisAlert).addClass('alert-validate');
 
-        $(thisAlert).append('<span class="btn-hide-validate">&#xf136;</span>')
         $('.btn-hide-validate').each(function(){
             $(this).on('click',function(){
                hideValidate(this);

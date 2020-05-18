@@ -16,7 +16,10 @@ public class WebConfig implements WebMvcConfigurer {
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/css/").setCachePeriod(31556926);
+        registry.addResourceHandler("/scss/**").addResourceLocations("/WEB-INF/scss/").setCachePeriod(31556926);
+        registry.addResourceHandler("/plugins/**").addResourceLocations("/WEB-INF/plugins/").setCachePeriod(31556926);
         registry.addResourceHandler("/img/**").addResourceLocations("/WEB-INF/images/").setCachePeriod(31556926);
+        registry.addResourceHandler("/image/**").addResourceLocations("/WEB-INF/image/").setCachePeriod(31556926);
         registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/js/").setCachePeriod(0);
         registry.addResourceHandler("/fonts/**").addResourceLocations("/WEB-INF/fonts/").setCachePeriod(31556926);
         registry.addResourceHandler("/vendor/**").addResourceLocations("/WEB-INF/vendor/").setCachePeriod(31556926);

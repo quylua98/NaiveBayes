@@ -31,25 +31,37 @@
     <!--===============================================================================================-->
 </head>
 <body>
-
-
 <div class="container-contact100">
-    <div class="wrap-contact100">
-        <form class="contact100-form validate-form" method="post" action="process">
+    <form id="contribute-form" action="/contribute" method="post">
+        <div class="wrap-contact100">
+            <form class="contact100-form validate-form" method="post" action="process">
 				<span class="contact100-form-title">
                     Ngành nghề phù hợp với bạn là : ${result}
 				</span>
-        </form>
-        <form action="/" method="get">
-        <div class="container-contact100-form-btn">
-            <button class="contact100-form-btn">
+            </form>
+            <div class="container-contact100-form-btn">
+                <button type="button" onclick="document.location.href='/';"
+                        class="contact100-form-btn">
 						<span>
 							Quay lại
 						</span>
-            </button>
-        </div>
-        </form>
-    </div>
+                </button>
+            </div>
+            <div class="container-contact100-form-btn">
+                <span style="font-size: 20px">Bạn thấy thông tin này hữu ích chứ?</span>
+            </div>
+
+            <input id="model-data" name="data" type="text" value='${model}' hidden>
+            <input id="activity-data-id" name="activityId" type="text" value="${activityId}" hidden>
+            <div class="container-contact100-form-btn">
+                <button style="background-color: #41bd45; width: 30%;" class="contact100-form-btn">
+						<span>
+                            Đồng ý
+						</span>
+                </button>
+            </div>
+    </form>
+</div>
 </div>
 
 
@@ -114,20 +126,5 @@
 </script>
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'UA-23581568-13');
-</script>
-
 </body>
 </html>

@@ -16,7 +16,7 @@ public class Model {
     private String gioiTinh;
     private String tuoi;
     private String huongNganh;
-    private String huongNoiNgoai;
+    private String tinhCach;
     private String result;
 
     public String getHocLuc() {
@@ -75,12 +75,12 @@ public class Model {
         this.huongNganh = huongNganh;
     }
 
-    public String getHuongNoiNgoai() {
-        return huongNoiNgoai;
+    public String getTinhCach() {
+        return tinhCach;
     }
 
-    public void setHuongNoiNgoai(String huongNoiNgoai) {
-        this.huongNoiNgoai = huongNoiNgoai;
+    public void setTinhCach(String tinhCach) {
+        this.tinhCach = tinhCach;
     }
 
     public String getResult() {

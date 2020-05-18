@@ -1,6 +1,13 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/survey_data?autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/survey_data?useSSL=false
     username: root
     password: cXV5bHVhOTg
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    show-sql: true
