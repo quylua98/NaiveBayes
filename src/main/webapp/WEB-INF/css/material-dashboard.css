@@ -18403,8 +18403,8 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .ct-chart .ct-label {
-  fill: rgba(0, 0, 0, 0.4);
-  color: rgba(0, 0, 0, 0.4);
+  fill: white;
+  color: white;
   display: -webkit-flex;
   display: flex;
 }

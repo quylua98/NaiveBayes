@@ -3,7 +3,9 @@ package com.uneti.doan.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uneti.doan.common.model.Model;
 import com.uneti.doan.dto.ModelDto;
+import com.uneti.doan.entity.ContactEntity;
 import com.uneti.doan.repo.ActivityRepository;
+import com.uneti.doan.repo.ContactRepository;
 import com.uneti.doan.repo.ModelRepository;
 import com.uneti.doan.serivce.ModelService;
 import org.ocpsoft.prettytime.PrettyTime;
@@ -25,29 +27,29 @@ public class AdminController {
     private final ModelRepository modelRepository;
     private final ModelService modelService;
     private final ActivityRepository activityRepository;
+    private final ContactRepository contactRepository;
     private final ObjectMapper objectMapper;
 
-    public AdminController(ModelRepository modelRepository, ModelService modelService, ActivityRepository activityRepository, ObjectMapper objectMapper) {
+    public AdminController(ModelRepository modelRepository, ModelService modelService, ActivityRepository activityRepository, ContactRepository contactRepository, ObjectMapper objectMapper) {
         this.modelRepository = modelRepository;
         this.modelService = modelService;
         this.activityRepository = activityRepository;
+        this.contactRepository = contactRepository;
         this.objectMapper = objectMapper;
     }
 
     @GetMapping("/")
     public String dashboard(org.springframework.ui.Model model) {
         model.addAttribute("listNganh", modelService.getMapNganhWithFirstLetter());
-
-        //Amount data
-
+        //data
         model.addAttribute("counter", modelRepository.count());
-
-        //Amount survey
+        //survey
         PrettyTime p = new PrettyTime();
         model.addAttribute("activityAgo",p.format(activityRepository.getMaxDate()));
         model.addAttribute("counterActivity", activityRepository.count());
-
-
+        //contact
+        model.addAttribute("counterContact", contactRepository.count());
+        //contribute
         model.addAttribute("counterContribute", activityRepository.countByContributeTrue(true));
         return "dashboard";
     }
@@ -58,6 +60,13 @@ public class AdminController {
         Map<String, List<Model>> map = modelList.stream().collect(Collectors.groupingBy(Model::getResult));
         model.addAttribute("modelMap", map);
         return "data-table";
+    }
+
+    @GetMapping("/contact-table")
+    public String contactTable(org.springframework.ui.Model model) {
+        List<ContactEntity> contactEntities = contactRepository.findAll();
+        model.addAttribute("contacts", contactEntities);
+        return "contact-table";
     }
 
     @GetMapping("/data-add-form")
@@ -97,11 +106,5 @@ public class AdminController {
         } catch (Exception ignored) {
         }
         return ResponseEntity.badRequest().build();
-    }
-
-    @ResponseBody
-    @GetMapping("/data/result/analyze")
-    public ResponseEntity<?> getListNganh() {
-        return ResponseEntity.ok(modelService.analyzeNganh());
     }
 }

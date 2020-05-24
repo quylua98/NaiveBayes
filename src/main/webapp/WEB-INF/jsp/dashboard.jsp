@@ -1,3 +1,6 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.DateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -42,16 +45,22 @@
                         <p>Bảng dữ liệu</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact-table">
+                        <i class="material-icons">content_paste</i>
+                        <p>Bảng góp ý</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
     <div class="main-panel">
-        <jsp:include page="_dashboard_nav.jsp" />
+        <jsp:include page="_dashboard_nav.jsp"/>
         <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-header card-header-warning card-header-icon">
                                 <div class="card-icon">
@@ -64,12 +73,16 @@
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">date_range</i> Last 24 Hours
+                                    <i class="material-icons">date_range</i>
+                                    <%
+                                        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                                        out.print(dateFormat.format(new Date()));
+                                    %>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-header card-header-success card-header-icon">
                                 <div class="card-icon">
@@ -85,35 +98,278 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="card card-stats">
-                            <div class="card-header card-header-danger card-header-icon">
+                            <div class="card-header card-header-info card-header-icon">
                                 <div class="card-icon">
-                                    <i class="material-icons">info_outline</i>
+                                    <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                 </div>
                                 <p class="card-category">Số người đóng góp</p>
                                 <h3 class="card-title">${counterContribute}</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">date_range</i> ${activityAgo}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-icon">
+                                <div class="card-icon">
+                                    <i class="fa fa-comments" aria-hidden="true"></i>
+                                </div>
+                                <p class="card-category">Số người đã góp ý</p>
+                                <h3 class="card-title">${counterContact}</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">date_range</i> ${activityAgo}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Line chart -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-success">
+                                <div class="ct-chart nganhChart"></div>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Chú thích</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <c:forEach items="${listNganh}" var="item" varStatus="loop">
+                                            <c:if test="${loop.index >= (listNganh.values().size() / 2)}">
+                                                <p class="card-category">${item.key}: ${item.value} </p>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <c:forEach items="${listNganh}" var="item" varStatus="loop">
+                                            <c:if test="${loop.index < (listNganh.values().size() / 2)}">
+                                                <p class="card-category">${item.key}: ${item.value} </p>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End line chart -->
+                <!-- Pie chart -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-icon card-header-danger">
+                                <div class="card-icon">
+                                    <i class="material-icons">pie_chart</i>
+                                </div>
+                                <h4 class="card-title">Biểu đồ tuổi</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="ct-chart tuoi"></div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6 class="card-category">Chú thích</h6>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="fa fa-circle text-warning"></i> 18-20 tuổi
+                                        <i class="fa fa-circle text-info"></i> 21-24 tuổi
+                                        <i class="fa fa-circle text-danger"></i> 25-30 tuổi
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-icon card-header-danger">
+                                <div class="card-icon">
+                                    <i class="material-icons">pie_chart</i>
+                                </div>
+                                <h4 class="card-title">Biểu đồ sức khoẻ</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="ct-chart sucKhoe"></div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6 class="card-category">Chú thích</h6>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="fa fa-circle text-warning"></i> Yếu
+                                        <i class="fa fa-circle text-info"></i> Bình thường
+                                        <i class="fa fa-circle text-danger"></i> Tốt
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="card card-chart">
-                            <div class="card-header card-header-success">
-                                <div class="ct-chart" id="dailySalesChart"></div>
+                            <div class="card-header card-header-icon card-header-danger">
+                                <div class="card-icon">
+                                    <i class="material-icons">pie_chart</i>
+                                </div>
+                                <h4 class="card-title">Biểu đồ ngoại hình</h4>
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title">Chú thích</h4>
-                                <c:forEach items="${listNganh}" var="item" >
-                                    <p class="card-category">${item.key}: ${item.value} </p>
-                                </c:forEach>
+                                <div class="ct-chart ngoaiHinh"></div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6 class="card-category">Chú thích</h6>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="fa fa-circle text-info"></i> Có
+                                        <i class="fa fa-circle text-danger"></i> Không
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-icon card-header-danger">
+                                <div class="card-icon">
+                                    <i class="material-icons">pie_chart</i>
+                                </div>
+                                <h4 class="card-title">Biểu đồ kinh tế</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="ct-chart kinhTe"></div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6 class="card-category">Chú thích</h6>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="fa fa-circle text-danger"></i> Khó khăn
+                                        <i class="fa fa-circle text-info"></i> Bình thường
+                                        <i class="fa fa-circle text-warning"></i> Giàu có
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-icon card-header-danger">
+                                <div class="card-icon">
+                                    <i class="material-icons">pie_chart</i>
+                                </div>
+                                <h4 class="card-title">Biểu đồ giới tính</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="ct-chart gioiTinh"></div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6 class="card-category">Chú thích</h6>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="fa fa-circle text-danger"></i> Nam
+                                        <i class="fa fa-circle text-info"></i> Nữ
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-icon card-header-danger">
+                                <div class="card-icon">
+                                    <i class="material-icons">pie_chart</i>
+                                </div>
+                                <h4 class="card-title">Biểu đồ hướng ngành</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="ct-chart huongNganh"></div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6 class="card-category">Chú thích</h6>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="fa fa-circle text-danger"></i> Kinh tế
+                                        <i class="fa fa-circle text-info"></i> Kĩ thuật
+                                        <i class="fa fa-circle text-warning"></i> Xã hội
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-icon card-header-danger">
+                                <div class="card-icon">
+                                    <i class="material-icons">pie_chart</i>
+                                </div>
+                                <h4 class="card-title">Biểu đồ tính cách</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="ct-chart tinhCach"></div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6 class="card-category">Chú thích</h6>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="fa fa-circle text-danger"></i> Hướng nội
+                                        <i class="fa fa-circle text-info"></i> Hướng ngoại
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-icon card-header-danger">
+                                <div class="card-icon">
+                                    <i class="material-icons">pie_chart</i>
+                                </div>
+                                <h4 class="card-title">Biểu đồ học lực</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="ct-chart hocLuc"></div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6 class="card-category">Chú thích</h6>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="fa fa-circle text-danger"></i> Trung bình
+                                        <i class="fa fa-circle text-info"></i> Khá
+                                        <i class="fa fa-circle text-warning"></i> Giỏi
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End pie chart -->
             </div>
-            <jsp:include page="_dashboard_footer.jsp" />
+            <jsp:include page="_dashboard_footer.jsp"/>
         </div>
     </div>
 </div>
@@ -151,6 +407,7 @@
 <!-- Library for adding dinamically elements -->
 <script src="${pageContext.request.contextPath}/js/plugins/arrive.min.js"></script>
 <!-- Chartist JS -->
+
 <script src="${pageContext.request.contextPath}/js/plugins/chartist.min.js"></script>
 <!--  Notifications Plugin    -->
 <script src="${pageContext.request.contextPath}/js/plugins/bootstrap-notify.js"></script>
@@ -329,29 +586,84 @@
 </script>
 <script>
     $(document).ready(function () {
-        var series = [];
-        var labels = [];
-         $.ajax({
-            type: "Get",
-            url: "data/result/analyze",
-            success: function (res) {
-                for (var key in res) {
-                    if (!res.hasOwnProperty(key)) continue;
-                    labels.push(key);
-                    series.push(res[key]);
-                }
-                new Chartist.Line('#dailySalesChart', {
-                    labels: labels,
-                    series: [
-                        series
-                    ]
-                }, {
-                    low: 0,
-                    showArea: true
-                });
-            }
-        })
+        var sum = function (a, b) {
+            return a + b
+        };
 
+        analyzeNganhHoc = () => {
+            let series = [];
+            let labels = [];
+            $.ajax({
+                type: "Get",
+                url: "analyze/data/result",
+                success: function (res) {
+                    for (let key in res) {
+                        if (!res.hasOwnProperty(key)) continue;
+                        labels.push(key);
+                        series.push(res[key]);
+                    }
+                    new Chartist.Line('.nganhChart', {
+                        labels: labels,
+                        series: [
+                            series
+                        ]
+                    }, {
+                        low: 0,
+                        showArea: true
+                    });
+                }
+            });
+        }
+
+        analyzePieChart = () => {
+            let properties = [
+                "hocLuc", "sucKhoe", "ngoaiHinh", "kinhTe", "gioiTinh", "tuoi", "huongNganh", "tinhCach"
+            ];
+            properties.forEach(item => {
+                $.ajax({
+                    type: "Get",
+                    url: "analyze/data/" + item,
+                    success: function (res) {
+                        let series = [];
+                        let labels = [];
+                        let options = {
+                            labelInterpolationFnc: function (value, idx) {
+                                return Math.round(series[idx] / series.reduce(sum) * 100) + '%';
+                            },
+                            height: '230px'
+                        };
+                        for (let key in res) {
+                            if (!res.hasOwnProperty(key)) continue;
+                            labels.push(key);
+                            series.push(res[key]);
+                        }
+                        new Chartist.Pie('.' + item, {
+                            labels: labels,
+                            series: series
+                        }, options);
+                    }
+                });
+
+            })
+        }
+
+        analyzePieChart();
+        analyzeNganhHoc();
+
+
+        // var data = {
+        //     series: [5, 3, 4]
+        // };
+        //
+        // var sum = function (a, b) {
+        //     return a + b
+        // };
+        //
+        // new Chartist.Pie('.ct-chart', data, {
+        //     labelInterpolationFnc: function (value) {
+        //         return Math.round(value / data.series.reduce(sum) * 100) + '%';
+        //     }
+        // });
 
     });
 </script>

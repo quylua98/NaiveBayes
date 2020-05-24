@@ -23480,3 +23480,37 @@ p {
   }
 }
 /*# sourceMappingURL=style.css.map */
+/***************** Custom CSS ********************/
+.form-contact {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+}
+.label-contact {
+  margin-right: auto;
+  margin-top: 20px;
+  font-size: 20px;
+}
+.input-contact {
+  border-radius: 20px;
+  height: 35px;
+  padding-left: 16px;
+  font-size: 16px;
+  outline-style: none;
+}
+.input-contact::placeholder, .textarea-contact::placeholder {
+  color: #d4d4d4;
+}
+
+.textarea-contact {
+  height: 150px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 20px;
+  outline-style: none;
+}
+
+
+
+/*************************************************/

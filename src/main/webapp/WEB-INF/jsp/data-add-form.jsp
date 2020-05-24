@@ -41,6 +41,12 @@
                         <p>Bảng dữ liệu</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact-table">
+                        <i class="material-icons">content_paste</i>
+                        <p>Bảng góp ý</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

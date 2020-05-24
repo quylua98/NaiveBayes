@@ -17,6 +17,11 @@ public class ModelService {
         this.modelRepository = modelRepository;
     }
 
+
+    public List<Model> findAll() {
+        return modelRepository.findAll();
+    }
+
     public static String splitWord(String s) {
         StringBuilder result = new StringBuilder();
         for (String str : s.split(" ")) {

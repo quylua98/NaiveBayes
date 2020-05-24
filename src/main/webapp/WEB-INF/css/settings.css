@@ -2,6 +2,9 @@
 /*=====================================*/
 /*-- :::: Section Padding Spacing :::: --*/
 /*=====================================*/
+html {
+  scroll-behavior: smooth;
+}
 .section-padding-bottom {
   padding-bottom: 50px;
 }

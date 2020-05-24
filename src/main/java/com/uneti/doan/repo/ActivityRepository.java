@@ -15,4 +15,5 @@ public interface ActivityRepository extends JpaRepository<ActivityEntity, Long> 
 
     @Query("SELECT MAX (a.createdDate) FROM ActivityEntity a")
     Date getMaxDate();
+
 }
